@@ -20,5 +20,13 @@ let package = Package(
                 .unsafeFlags(["-cross-module-optimization"], .when(configuration: .release)),
             ]
         ),
+        .testTarget(
+            name: "SwiftRegistryTests",
+            dependencies: [
+                .byName(name: "SwiftRegistry"),
+                .product(name: "Hummingbird", package: "hummingbird"),
+                .product(name: "HummingbirdTesting", package: "hummingbird"),
+            ]
+        )
     ]
 )
