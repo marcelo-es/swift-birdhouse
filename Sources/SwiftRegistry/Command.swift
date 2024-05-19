@@ -11,7 +11,7 @@ struct SwiftRegistryCommand: AsyncParsableCommand {
     var port: Int = 8080
 
     func run() async throws {
-        let application = buildApplication(
+        let application = try buildApplication(
             configuration: .init(
                 address: .hostname(self.hostname, port: self.port),
                 serverName: "Hummingbird"
