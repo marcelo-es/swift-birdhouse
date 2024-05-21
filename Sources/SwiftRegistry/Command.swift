@@ -2,7 +2,7 @@ import ArgumentParser
 import Hummingbird
 
 @main
-struct SwiftRegistryCommand: AsyncParsableCommand {
+struct SwiftRegistryCommand: AsyncParsableCommand, ApplicationArguments {
 
     @Option(name: .shortAndLong)
     var hostname: String = "127.0.0.1"
@@ -10,14 +10,25 @@ struct SwiftRegistryCommand: AsyncParsableCommand {
     @Option(name: .shortAndLong)
     var port: Int = 8080
 
+    @Flag(name: .shortAndLong)
+    var inMemoryTesting: Bool = false
+
     func run() async throws {
-        let application = try buildApplication(
-            configuration: .init(
-                address: .hostname(self.hostname, port: self.port),
-                serverName: "Hummingbird"
-            )
-        )
+        let application = try buildApplication(self)
         try await application.runService()
     }
+
+}
+
+protocol ApplicationArguments {
+
+    /// Hostname to bind to
+    var hostname: String { get }
+
+    /// Port to bind to
+    var port: Int { get }
+
+    /// Use in-memory testing
+    var inMemoryTesting: Bool { get }
 
 }

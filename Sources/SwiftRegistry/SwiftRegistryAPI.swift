@@ -1,6 +1,8 @@
 import RegistryAPI
 
-public struct SwiftRegistryAPI: APIProtocol {
+struct SwiftRegistryAPI<Repository: ReleaseRepository>: APIProtocol {
+
+    let repository: Repository
 
     package func listPackageReleases(_ input: Operations.listPackageReleases.Input) async throws -> Operations.listPackageReleases.Output {
         .undocumented(statusCode: 501, .notImplemented())
