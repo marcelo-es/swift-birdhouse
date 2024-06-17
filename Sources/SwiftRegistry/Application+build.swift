@@ -8,7 +8,7 @@ func buildApplication(_ arguments: ApplicationArguments) throws -> some Applicat
 
     let router = Router()
 
-    router.middlewares.add(LogRequestsMiddleware(.info, includeHeaders: true))
+    router.middlewares.add(LogRequestsMiddleware(.info, includeHeaders: .all()))
 
     let repository = ReleaseMemoryRepository()
     let api = SwiftRegistryAPI(repository: repository)

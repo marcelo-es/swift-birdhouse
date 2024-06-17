@@ -11,7 +11,7 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-openapi-generator", from: "1.2.1"),
         .package(url: "https://github.com/apple/swift-openapi-runtime", from: "1.2.1"),
         .package(url: "https://github.com/swift-server/swift-openapi-hummingbird", from: "2.0.0-beta.1"),
-        .package(url: "https://github.com/hummingbird-project/hummingbird", from: "2.0.0-beta.4"),
+        .package(url: "https://github.com/hummingbird-project/hummingbird", from: "2.0.0-beta.6"),
     ],
     targets: [
         .executableTarget(
