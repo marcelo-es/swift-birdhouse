@@ -1,5 +1,5 @@
 {
-  "originHash" : "1ee51ab9734dcf406ef54869b3180a7414b078afe03b56359b97f5c19e306e28",
+  "originHash" : "db5200da73b5266506311eef758cf46ca94edd159582cfcb8ed0664a70b9ee32",
   "pins" : [
     {
       "identity" : "async-http-client",
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/hummingbird-project/hummingbird.git",
       "state" : {
-        "revision" : "44aea61cd1756125fb4d799685867956c054f149",
-        "version" : "2.0.0-beta.6"
+        "revision" : "de24af2daf32e8ef9439823e7c72b3ee8676ef6c",
+        "version" : "2.0.0-beta.8"
       }
     },
     {
@@ -42,8 +42,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-argument-parser.git",
       "state" : {
-        "revision" : "46989693916f56d1186bd59ac15124caef896560",
-        "version" : "1.3.1"
+        "revision" : "0fbc8848e389af3bb55c182bc19ca9d5dc2f255b",
+        "version" : "1.4.0"
       }
     },
     {
@@ -177,8 +177,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/swift-server/swift-openapi-hummingbird",
       "state" : {
-        "revision" : "9686d8af504d81110a80f2db1ffa161819cb456b",
-        "version" : "2.0.0-beta.1"
+        "revision" : "ea162660dd58995c574ce0380784293c97e771da",
+        "version" : "2.0.0-beta.2"
       }
     },
     {
