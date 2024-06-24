@@ -1,7 +1,7 @@
 @testable import SwiftRegistry
 import Foundation
 
-extension Set where Element == Release {
+extension Set<Release> {
 
     static func mock() -> Self {
         [
