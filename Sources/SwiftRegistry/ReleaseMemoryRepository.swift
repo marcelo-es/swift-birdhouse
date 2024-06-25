@@ -14,7 +14,8 @@ actor ReleaseMemoryRepository: ReleaseRepository {
             id: UUID(),
             scope: scope,
             name: name,
-            version: version
+            version: version,
+            problem: nil
         )
         releases.insert(release)
         return release

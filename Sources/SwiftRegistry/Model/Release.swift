@@ -14,4 +14,7 @@ struct Release: Hashable {
     /// Version of the release
     let version: String
 
+    /// Details of a problem with this release
+    let problem: Problem?
+
 }

@@ -31,21 +31,31 @@ struct SwiftRegistryAPI<Repository: ReleaseRepository>: APIProtocol {
             )
         }
 
-        var releasesObject = [String: (any Sendable)]()
+        var releasesResponse = [String: (any Sendable)]()
         for release in releases {
-            var releaseObject = [String: (any Sendable)]()
-            releaseObject["url"] = "\(baseURL.absoluteString)/\(release.scope)/\(release.name)/\(release.version)"
+            var releaseResponse = [String: (any Sendable)]()
+            releaseResponse["url"] = "\(baseURL.absoluteString)/\(release.scope)/\(release.name)/\(release.version)"
 
-            releasesObject[release.version] = releaseObject
+            if let problem = release.problem {
+                var problemResponse = [String: (any Sendable)]()
+                problemResponse["type"] = problem.type
+                problemResponse["title"] = problem.title
+                problemResponse["status"] = problem.status
+                problemResponse["detail"] = problem.detail
+                problemResponse["instance"] = problem.instance
+                releaseResponse["problem"] = problemResponse
+            }
+
+            releasesResponse[release.version] = releaseResponse
         }
 
-        let outputObject = try OpenAPIObjectContainer(unvalidatedValue: releasesObject)
+        let outputResponse = try OpenAPIObjectContainer(unvalidatedValue: releasesResponse)
 
         return .ok(
             .init(
                 headers: .init(Content_hyphen_Version: ._1),
                 body: .json(
-                    .init(releases: outputObject)
+                    .init(releases: outputResponse)
                 )
             )
         )
@@ -73,3 +83,18 @@ struct SwiftRegistryAPI<Repository: ReleaseRepository>: APIProtocol {
     }
 
 }
+
+extension Components.Schemas.problem {
+
+    init(problem: Problem) {
+        self.init(
+            _type: problem.type ?? "",
+            title: problem.title ?? "",
+            status: Double(problem.status ?? 0),
+            instance: problem.instance ?? "",
+            detail: problem.detail ?? ""
+        )
+    }
+
+}
+
