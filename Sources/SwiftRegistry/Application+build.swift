@@ -1,3 +1,4 @@
+import Foundation
 import Hummingbird
 import Logging
 import OpenAPIHummingbird
@@ -10,14 +11,69 @@ func buildApplication(_ arguments: ApplicationArguments) throws -> some Applicat
 
     router.middlewares.add(LogRequestsMiddleware(.info, includeHeaders: .all()))
 
-    let repository = ReleaseMemoryRepository()
-    let api = SwiftRegistryAPI(repository: repository)
+    let repository = ReleaseMemoryRepository(releases: .mock())
+    let api = SwiftRegistryAPI(
+        baseURL: try arguments.baseURL,
+        repository: repository
+    )
     try api.registerHandlers(on: router)
 
     let application = Application(
         router: router,
-        configuration: .init(address: .hostname(arguments.hostname, port: arguments.port), serverName: "SwiftRegistry"),
+        configuration: .init(address: arguments.bindAddress, serverName: "SwiftRegistry"),
         logger: logger
     )
     return application
+}
+
+extension Set<Release> {
+    
+    static func mock() -> Self {
+        [
+            Release(
+                id: UUID(uuidString: "022D805C-4726-4F23-9A6B-11BEE3FBBB34")!,
+                scope: "mona",
+                name: "LinkedList",
+                version: "1.0.0"
+            ),
+            Release(
+                id: UUID(uuidString: "3D550E25-62AD-4CE1-A2FF-F9B626603FDD")!,
+                scope: "mona",
+                name: "LinkedList",
+                version: "1.1.0"
+            ),
+            Release(
+                id: UUID(uuidString: "9B595D15-3E5C-46A8-B770-D8EF9346C132")!,
+                scope: "mona",
+                name: "LinkedList",
+                version: "1.1.1"
+            ),
+        ]
+    }
+
+}
+
+extension ApplicationArguments {
+
+    var bindAddress: BindAddress {
+        return .hostname(hostname, port: port)
+    }
+
+    var baseURL: URL {
+        get throws {
+            var baseURL = URLComponents()
+            baseURL.scheme = "http"
+            baseURL.host = hostname
+            baseURL.port = port
+            guard let url = baseURL.url else {
+                throw ApplicationArgumentsError.malformedURL(host: hostname, port: port)
+            }
+            return url
+        }
+    }
+
+}
+
+enum ApplicationArgumentsError: Error {
+    case malformedURL(host: String, port: Int)
 }
