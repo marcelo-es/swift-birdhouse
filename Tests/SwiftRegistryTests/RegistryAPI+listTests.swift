@@ -8,7 +8,7 @@ import Testing
 @Test func listPackages() async throws {
     let mockBaseURL = URL(string: "https://packages.example.com")!
     let mockRepository = ReleaseMemoryRepository(releases: .mock())
-    let testSubject = SwiftRegistryAPI(baseURL: mockBaseURL, repository: mockRepository)
+    let testSubject = RegistryController(baseURL: mockBaseURL, repository: mockRepository)
 
     let input = Operations.listPackageReleases.Input(
         path: .init(scope: "mona", name: "LinkedList")

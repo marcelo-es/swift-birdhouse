@@ -12,11 +12,11 @@ func buildApplication(_ arguments: ApplicationArguments) throws -> some Applicat
     router.middlewares.add(LogRequestsMiddleware(.info, includeHeaders: .all()))
 
     let repository = ReleaseMemoryRepository(releases: .mock())
-    let api = SwiftRegistryAPI(
+    let registryController = RegistryController(
         baseURL: try arguments.baseURL,
         repository: repository
     )
-    try api.registerHandlers(on: router)
+    try registryController.registerHandlers(on: router)
 
     let application = Application(
         router: router,

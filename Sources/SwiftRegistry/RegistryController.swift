@@ -2,7 +2,7 @@ import Foundation
 import OpenAPIRuntime
 import RegistryAPI
 
-struct SwiftRegistryAPI<Repository: ReleaseRepository>: APIProtocol {
+struct RegistryController<Repository: ReleaseRepository>: APIProtocol {
 
     let baseURL: URL
     let repository: Repository
