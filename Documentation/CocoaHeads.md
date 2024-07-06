@@ -4,3 +4,6 @@ Presentation rendered with [Deckset](deckset.com)
 
 # Swift Registry
 ## Publish Dependencies Ouside of GitHub
+
+
+- Swift Registry requires HTTPS

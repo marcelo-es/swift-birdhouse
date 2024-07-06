@@ -1,7 +1,10 @@
 import Foundation
 import Hummingbird
+import HummingbirdCore
+import HummingbirdTLS
 import Logging
 import OpenAPIHummingbird
+import NIOSSL
 
 func buildApplication(_ arguments: ApplicationArguments) throws -> some ApplicationProtocol {
     var logger = Logger(label: "SwiftRegistry")
@@ -17,10 +20,21 @@ func buildApplication(_ arguments: ApplicationArguments) throws -> some Applicat
         repository: repository
     )
     try registryController.registerHandlers(on: router)
+    
+    let server: HTTPServerBuilder
+    if let tlsConfiguration = try arguments.tlsConfiguration {
+        server = try .tls(tlsConfiguration: tlsConfiguration)
+    } else {
+        server = .http1()
+    }
 
     let application = Application(
         router: router,
-        configuration: .init(address: arguments.bindAddress, serverName: "SwiftRegistry"),
+        server: server,
+        configuration: .init(
+            address: arguments.bindAddress,
+            serverName: "SwiftRegistry"
+        ),
         logger: logger
     )
     return application
@@ -78,6 +92,20 @@ extension ApplicationArguments {
                 throw ApplicationArgumentsError.malformedURL(host: hostname, port: port)
             }
             return url
+        }
+    }
+
+    var tlsConfiguration: TLSConfiguration? {
+        get throws {
+            guard let certificatePath, let privateKeyPath else {
+                return nil
+            }
+            let certificate = try NIOSSLCertificate.fromPEMFile(certificatePath)
+            let privateKey = try NIOSSLPrivateKey(file: privateKeyPath, format: .pem)
+            return TLSConfiguration.makeServerConfiguration(
+                certificateChain: certificate.map { .certificate($0) },
+                privateKey: .privateKey(privateKey)
+            )
         }
     }
 

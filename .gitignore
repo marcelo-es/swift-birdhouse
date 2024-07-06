@@ -7,3 +7,7 @@ DerivedData/
 .swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
 .netrc
 .vscode/
+
+# Certificates 
+.swift-registry-key.key
+.swift-registry-certificate.crt

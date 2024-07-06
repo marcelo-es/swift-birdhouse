@@ -5,6 +5,9 @@ import PackageDescription
 let package = Package(
     name: "SwiftRegistry",
     platforms: [ .macOS(.v14) ],
+    products: [
+        .executable(name: "swift-registry", targets: ["SwiftRegistry"]),
+    ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser", from: "1.4.0"),
         .package(url: "https://github.com/apple/swift-log", from: "1.5.4"),
@@ -22,6 +25,7 @@ let package = Package(
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 .product(name: "Logging", package: "swift-log"),
                 .product(name: "Hummingbird", package: "hummingbird"),
+                .product(name: "HummingbirdTLS", package: "hummingbird"),
                 .product(name: "OpenAPIHummingbird", package: "swift-openapi-hummingbird"),
             ],
             swiftSettings: [
