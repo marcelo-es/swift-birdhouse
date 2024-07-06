@@ -1,4 +1,5 @@
 import Foundation
+import HTTPTypes
 import Hummingbird
 
 struct RegistryController<Repository: ReleaseRepository> {
@@ -7,7 +8,14 @@ struct RegistryController<Repository: ReleaseRepository> {
     let repository: Repository
 
     func addRoutes(to group: RouterGroup<some RequestContext>) {
+        group.get(":scope/:name", use: listPackageReleases)
         group.put(":scope/:name/:version", use: publishPackageRelease)   
     }
+
+}
+
+extension HTTPField.Name {
+
+    static let contentVersion = Self("Content-Version")!
 
 }

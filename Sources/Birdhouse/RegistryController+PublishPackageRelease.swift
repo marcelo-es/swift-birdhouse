@@ -1,13 +1,12 @@
 import Foundation
 import Hummingbird
-import HTTPTypes
 import MultipartKit
 
 extension RegistryController {
 
     @Sendable func publishPackageRelease(request: Request, context: some RequestContext) async throws -> Response? {
         let scope = try context.parameters.require("scope")
-        let name = try context.parameters.require("scope")
+        let name = try context.parameters.require("name")
         let version = try context.parameters.require("version")
 
         let decodedRequest = try await FormDataDecoder().decode(
@@ -66,11 +65,5 @@ extension FormDataDecoder {
         let buffer = try await request.body.collect(upTo: 10_000_000)
         return try self.decode(T.self, from: buffer, boundary: parameter.value)
     }
-
-}
-
-extension HTTPField.Name {
-
-    static let contentVersion = Self("Content-Version")!
 
 }
