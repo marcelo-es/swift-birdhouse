@@ -1,7 +1,7 @@
 import Foundation
 
 /// Implementation of `ReleaseRepository` that stores releases in memory.
-actor ReleaseMemoryRepository: ReleaseRepository {
+actor MemoryReleaseRepository: ReleaseRepository {
 
     var releases: Set<Release>
 
@@ -9,13 +9,14 @@ actor ReleaseMemoryRepository: ReleaseRepository {
         self.releases = releases
     }
 
-    func create(scope: String, name: String, version: String) throws -> Release {
+    func create(scope: String, name: String, version: String, sourceArchive: Data) throws -> Release {
         let release = Release(
             id: UUID(),
             scope: scope,
             name: name,
             version: version,
-            problem: nil
+            problem: nil,
+            sourceArchive: sourceArchive
         )
         releases.insert(release)
         return release

@@ -1,5 +1,5 @@
 {
-  "originHash" : "509acb4a1b7ca856da6394d3adbe79428431fc6b45b365783473d44904bd6a75",
+  "originHash" : "bab04ffb795a2b4ca3563eb219f1d7cd95034824e93c8b84e007b9f5c8ff1630",
   "pins" : [
     {
       "identity" : "async-http-client",
@@ -17,6 +17,15 @@
       "state" : {
         "revision" : "0e6de7141f4feda30c319c1a14047b7057f38db5",
         "version" : "2.0.0-rc.1"
+      }
+    },
+    {
+      "identity" : "multipart-kit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/vapor/multipart-kit",
+      "state" : {
+        "revision" : "a31236f24bfd2ea2f520a74575881f6731d7ae68",
+        "version" : "4.7.0"
       }
     },
     {
@@ -78,8 +87,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-http-types.git",
       "state" : {
-        "revision" : "12358d55a3824bd5fed310b999ea8cf83a9a1a65",
-        "version" : "1.0.3"
+        "revision" : "1ddbea1ee34354a6a2532c60f98501c35ae8edfa",
+        "version" : "1.2.0"
       }
     },
     {
