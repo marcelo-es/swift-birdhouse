@@ -3,7 +3,6 @@ import Hummingbird
 import HummingbirdCore
 import HummingbirdTLS
 import Logging
-import OpenAPIHummingbird
 import NIOSSL
 
 func buildApplication(_ arguments: ApplicationArguments) throws -> some ApplicationProtocol {
@@ -19,7 +18,6 @@ func buildApplication(_ arguments: ApplicationArguments) throws -> some Applicat
         baseURL: try arguments.baseURL,
         repository: repository
     )
-    try registryController.registerHandlers(on: router)
     
     let server: HTTPServerBuilder
     if let tlsConfiguration = try arguments.tlsConfiguration {
