@@ -77,11 +77,13 @@ extension APIProtocol {
     /// - Remark: Generated from `#/paths//{scope}/{name}/{version}/put(publishPackageRelease)`.
     package func publishPackageRelease(
         path: Operations.publishPackageRelease.Input.Path,
-        headers: Operations.publishPackageRelease.Input.Headers = .init()
+        headers: Operations.publishPackageRelease.Input.Headers = .init(),
+        body: Operations.publishPackageRelease.Input.Body
     ) async throws -> Operations.publishPackageRelease.Output {
         try await publishPackageRelease(Operations.publishPackageRelease.Input(
             path: path,
-            headers: headers
+            headers: headers,
+            body: body
         ))
     }
     /// Fetch manifest for a package release
@@ -790,17 +792,78 @@ package enum Operations {
                 }
             }
             package var headers: Operations.publishPackageRelease.Input.Headers
+            /// - Remark: Generated from `#/paths/{scope}/{name}/{version}/PUT/requestBody`.
+            @frozen package enum Body: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/{scope}/{name}/{version}/PUT/requestBody/multipartForm`.
+                @frozen package enum multipartFormPayload: Sendable, Hashable {
+                    /// - Remark: Generated from `#/paths/{scope}/{name}/{version}/PUT/requestBody/multipartForm/source-archive`.
+                    package struct source_hyphen_archivePayload: Sendable, Hashable {
+                        package var body: OpenAPIRuntime.HTTPBody
+                        /// Creates a new `source_hyphen_archivePayload`.
+                        ///
+                        /// - Parameters:
+                        ///   - body:
+                        package init(body: OpenAPIRuntime.HTTPBody) {
+                            self.body = body
+                        }
+                    }
+                    case source_hyphen_archive(OpenAPIRuntime.MultipartPart<Operations.publishPackageRelease.Input.Body.multipartFormPayload.source_hyphen_archivePayload>)
+                    /// - Remark: Generated from `#/paths/{scope}/{name}/{version}/PUT/requestBody/multipartForm/source-archive-signature`.
+                    package struct source_hyphen_archive_hyphen_signaturePayload: Sendable, Hashable {
+                        package var body: OpenAPIRuntime.HTTPBody
+                        /// Creates a new `source_hyphen_archive_hyphen_signaturePayload`.
+                        ///
+                        /// - Parameters:
+                        ///   - body:
+                        package init(body: OpenAPIRuntime.HTTPBody) {
+                            self.body = body
+                        }
+                    }
+                    case source_hyphen_archive_hyphen_signature(OpenAPIRuntime.MultipartPart<Operations.publishPackageRelease.Input.Body.multipartFormPayload.source_hyphen_archive_hyphen_signaturePayload>)
+                    /// - Remark: Generated from `#/paths/{scope}/{name}/{version}/PUT/requestBody/multipartForm/metadata`.
+                    package struct metadataPayload: Sendable, Hashable {
+                        package var body: Swift.String
+                        /// Creates a new `metadataPayload`.
+                        ///
+                        /// - Parameters:
+                        ///   - body:
+                        package init(body: Swift.String) {
+                            self.body = body
+                        }
+                    }
+                    case metadata(OpenAPIRuntime.MultipartPart<Operations.publishPackageRelease.Input.Body.multipartFormPayload.metadataPayload>)
+                    /// - Remark: Generated from `#/paths/{scope}/{name}/{version}/PUT/requestBody/multipartForm/metadata-signature`.
+                    package struct metadata_hyphen_signaturePayload: Sendable, Hashable {
+                        package var body: OpenAPIRuntime.HTTPBody
+                        /// Creates a new `metadata_hyphen_signaturePayload`.
+                        ///
+                        /// - Parameters:
+                        ///   - body:
+                        package init(body: OpenAPIRuntime.HTTPBody) {
+                            self.body = body
+                        }
+                    }
+                    case metadata_hyphen_signature(OpenAPIRuntime.MultipartPart<Operations.publishPackageRelease.Input.Body.multipartFormPayload.metadata_hyphen_signaturePayload>)
+                    case undocumented(OpenAPIRuntime.MultipartRawPart)
+                }
+                /// - Remark: Generated from `#/paths/{scope}/{name}/{version}/PUT/requestBody/content/multipart\/form-data`.
+                case multipartForm(OpenAPIRuntime.MultipartBody<Operations.publishPackageRelease.Input.Body.multipartFormPayload>)
+            }
+            package var body: Operations.publishPackageRelease.Input.Body
             /// Creates a new `Input`.
             ///
             /// - Parameters:
             ///   - path:
             ///   - headers:
+            ///   - body:
             package init(
                 path: Operations.publishPackageRelease.Input.Path,
-                headers: Operations.publishPackageRelease.Input.Headers = .init()
+                headers: Operations.publishPackageRelease.Input.Headers = .init(),
+                body: Operations.publishPackageRelease.Input.Body
             ) {
                 self.path = path
                 self.headers = headers
+                self.body = body
             }
         }
         @frozen package enum Output: Sendable, Hashable {

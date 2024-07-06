@@ -1,6 +1,6 @@
 # Swift Birdhouse
 
-A Swift Registry, built with Hummingbird.
+A Swift Registry, home for your package dependencies. Built with Hummingbird(s).
 
 ## TLS
 

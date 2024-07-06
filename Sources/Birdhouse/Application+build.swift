@@ -15,7 +15,7 @@ func buildApplication(_ arguments: ApplicationArguments) throws -> some Applicat
     router.middlewares.add(LogRequestsMiddleware(.info, includeHeaders: .all()))
 
     let repository = ReleaseMemoryRepository(releases: .mock())
-    let registryController = RegistryController(
+    let registryController = OpenAPIRegistryController(
         baseURL: try arguments.baseURL,
         repository: repository
     )

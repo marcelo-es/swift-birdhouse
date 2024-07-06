@@ -82,13 +82,37 @@ paths:
         - Release
       summary: Publish package release
       operationId: publishPackageRelease
-      parameters:
-        - name: Content-Type
-          in: header
-          schema:
-            type: string
-            enum:
-              - multipart/form-data
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                source-archive:
+                  type: string
+                  contentEncoding: base64
+                source-archive-signature:
+                  type: string
+                  contentEncoding: base64
+                metadata:
+                  type: string
+                  contentEncoding: quoted-printable
+                metadata-signature:
+                  type: string
+                  contentEncoding: quoted-printable
+              required:
+                - source-archive
+            encoding:
+              source-archive:
+                contentType: application/zip
+              source-archive-signature:
+                contentType: application/octet-stream
+              metadata:
+                contentType: application/json
+              metadata-signature:
+                contentType: application/octet-stream
+
       responses:
         "100":
           description: ""

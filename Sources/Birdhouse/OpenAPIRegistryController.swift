@@ -2,7 +2,7 @@ import Foundation
 import OpenAPIRuntime
 import RegistryAPI
 
-struct RegistryController<Repository: ReleaseRepository>: APIProtocol {
+struct OpenAPIRegistryController<Repository: ReleaseRepository>: APIProtocol {
 
     let baseURL: URL
     let repository: Repository
@@ -67,7 +67,7 @@ struct RegistryController<Repository: ReleaseRepository>: APIProtocol {
     }
 
     package func publishPackageRelease(_ input: Operations.publishPackageRelease.Input) async throws -> Operations.publishPackageRelease.Output {
-        .undocumented(statusCode: 501, .notImplemented())
+        return .undocumented(statusCode: 501, .notImplemented())
     }
 
     package func fetchManifestForPackageRelease(_ input: Operations.fetchManifestForPackageRelease.Input) async throws -> Operations.fetchManifestForPackageRelease.Output {

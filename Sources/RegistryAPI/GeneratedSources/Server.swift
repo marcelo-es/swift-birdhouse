@@ -351,9 +351,114 @@ fileprivate extension UniversalServer where APIHandler: APIProtocol {
                     )
                 )
                 let headers: Operations.publishPackageRelease.Input.Headers = .init(accept: try converter.extractAcceptHeaderIfPresent(in: request.headerFields))
+                let contentType = converter.extractContentTypeIfPresent(in: request.headerFields)
+                let body: Operations.publishPackageRelease.Input.Body
+                let chosenContentType = try converter.bestContentType(
+                    received: contentType,
+                    options: [
+                        "multipart/form-data"
+                    ]
+                )
+                switch chosenContentType {
+                case "multipart/form-data":
+                    body = try converter.getRequiredRequestBodyAsMultipart(
+                        OpenAPIRuntime.MultipartBody<Operations.publishPackageRelease.Input.Body.multipartFormPayload>.self,
+                        from: requestBody,
+                        transforming: { value in
+                            .multipartForm(value)
+                        },
+                        boundary: contentType.requiredBoundary(),
+                        allowsUnknownParts: true,
+                        requiredExactlyOncePartNames: [
+                            "source-archive"
+                        ],
+                        requiredAtLeastOncePartNames: [],
+                        atMostOncePartNames: [
+                            "metadata",
+                            "metadata-signature",
+                            "source-archive-signature"
+                        ],
+                        zeroOrMoreTimesPartNames: [],
+                        decoding: { part in
+                            let headerFields = part.headerFields
+                            let (name, filename) = try converter.extractContentDispositionNameAndFilename(in: headerFields)
+                            switch name {
+                            case "source-archive":
+                                try converter.verifyContentTypeIfPresent(
+                                    in: headerFields,
+                                    matches: "application/zip"
+                                )
+                                let body = try converter.getRequiredRequestBodyAsBinary(
+                                    OpenAPIRuntime.HTTPBody.self,
+                                    from: part.body,
+                                    transforming: {
+                                        $0
+                                    }
+                                )
+                                return .source_hyphen_archive(.init(
+                                    payload: .init(body: body),
+                                    filename: filename
+                                ))
+                            case "source-archive-signature":
+                                try converter.verifyContentTypeIfPresent(
+                                    in: headerFields,
+                                    matches: "application/octet-stream"
+                                )
+                                let body = try converter.getRequiredRequestBodyAsBinary(
+                                    OpenAPIRuntime.HTTPBody.self,
+                                    from: part.body,
+                                    transforming: {
+                                        $0
+                                    }
+                                )
+                                return .source_hyphen_archive_hyphen_signature(.init(
+                                    payload: .init(body: body),
+                                    filename: filename
+                                ))
+                            case "metadata":
+                                try converter.verifyContentTypeIfPresent(
+                                    in: headerFields,
+                                    matches: "application/json"
+                                )
+                                let body = try await converter.getRequiredRequestBodyAsJSON(
+                                    Swift.String.self,
+                                    from: part.body,
+                                    transforming: {
+                                        $0
+                                    }
+                                )
+                                return .metadata(.init(
+                                    payload: .init(body: body),
+                                    filename: filename
+                                ))
+                            case "metadata-signature":
+                                try converter.verifyContentTypeIfPresent(
+                                    in: headerFields,
+                                    matches: "application/octet-stream"
+                                )
+                                let body = try converter.getRequiredRequestBodyAsBinary(
+                                    OpenAPIRuntime.HTTPBody.self,
+                                    from: part.body,
+                                    transforming: {
+                                        $0
+                                    }
+                                )
+                                return .metadata_hyphen_signature(.init(
+                                    payload: .init(body: body),
+                                    filename: filename
+                                ))
+                            default:
+                                return .undocumented(part)
+                            }
+                        }
+                    )
+                default:
+                    preconditionFailure("bestContentType chose an invalid content type.")
+                }
                 return Operations.publishPackageRelease.Input(
                     path: path,
-                    headers: headers
+                    headers: headers,
+                    body: body
                 )
             },
             serializer: { output, request in
