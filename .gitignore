@@ -9,5 +9,5 @@ DerivedData/
 .vscode/
 
 # Certificates 
-.birdhouse-key.key
-.birdhouse-certificate.crt
+birdhouse-key.key
+birdhouse-certificate.crt
