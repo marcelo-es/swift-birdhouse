@@ -2,7 +2,7 @@ import ArgumentParser
 import Hummingbird
 
 @main
-struct SwiftRegistryCommand: AsyncParsableCommand, ApplicationArguments {
+struct BirdhouseCommand: AsyncParsableCommand, ApplicationArguments {
 
     @Option(name: .shortAndLong)
     var hostname: String = "127.0.0.1"

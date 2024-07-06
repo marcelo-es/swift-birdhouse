@@ -8,8 +8,8 @@ generate-api:
 generate-certificate:
 	openssl req -x509 \
 		-newkey rsa:4096 \
-		-keyout swift-registry-key.key \
-		-out swift-registry-certificate.crt \
+		-keyout birdhouse-key.key \
+		-out birdhouse-certificate.crt \
 		-days 365 \
 		-noenc \
-		-subj "/O=SwiftRegistry/CN=localhost"
+		-subj "/C=AU/ST=Victoria/L=Melbourne/O=Birdhouse/CN=localhost"

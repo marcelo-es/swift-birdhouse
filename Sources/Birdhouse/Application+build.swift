@@ -7,7 +7,7 @@ import OpenAPIHummingbird
 import NIOSSL
 
 func buildApplication(_ arguments: ApplicationArguments) throws -> some ApplicationProtocol {
-    var logger = Logger(label: "SwiftRegistry")
+    var logger = Logger(label: "swift-birdhouse")
     logger.logLevel = .debug
 
     let router = Router()
@@ -33,7 +33,7 @@ func buildApplication(_ arguments: ApplicationArguments) throws -> some Applicat
         server: server,
         configuration: .init(
             address: arguments.bindAddress,
-            serverName: "SwiftRegistry"
+            serverName: "swift-birdhouse"
         ),
         logger: logger
     )

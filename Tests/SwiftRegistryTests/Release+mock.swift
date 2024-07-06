@@ -1,4 +1,4 @@
-@testable import SwiftRegistry
+@testable import Birdhouse
 import Foundation
 
 extension Set<Release> {

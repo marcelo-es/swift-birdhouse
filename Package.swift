@@ -3,10 +3,10 @@
 import PackageDescription
 
 let package = Package(
-    name: "SwiftRegistry",
+    name: "SwiftBirdhouse",
     platforms: [ .macOS(.v14) ],
     products: [
-        .executable(name: "swift-registry", targets: ["SwiftRegistry"]),
+        .executable(name: "birdhouse", targets: ["Birdhouse"]),
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser", from: "1.4.0"),
@@ -19,7 +19,7 @@ let package = Package(
     ],
     targets: [
         .executableTarget(
-            name: "SwiftRegistry",
+            name: "Birdhouse",
             dependencies: [
                 .byName(name: "RegistryAPI"),
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
@@ -43,9 +43,9 @@ let package = Package(
             ]
         ),
         .testTarget(
-            name: "SwiftRegistryTests",
+            name: "BirdhouseTests",
             dependencies: [
-                .byName(name: "SwiftRegistry"),
+                .byName(name: "Birdhouse"),
                 .product(name: "Hummingbird", package: "hummingbird"),
                 .product(name: "HummingbirdTesting", package: "hummingbird"),
                 .product(name: "Testing", package: "swift-testing"),

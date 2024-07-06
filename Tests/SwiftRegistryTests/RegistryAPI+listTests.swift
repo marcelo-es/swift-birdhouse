@@ -3,7 +3,7 @@ import OpenAPIRuntime
 import RegistryAPI
 import Testing
 
-@testable import SwiftRegistry
+@testable import Birdhouse
 
 @Test func listPackages() async throws {
     let mockBaseURL = URL(string: "https://packages.example.com")!

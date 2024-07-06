@@ -1,17 +1,17 @@
-# Swift Registry
+# Swift Birdhouse
 
-A Swift registry, built with Hummingbird.
+A Swift Registry, built with Hummingbird.
 
 ## TLS
 
-While TLS is not a requirement to run the project, SwiftPM will only connect to Swift Registry over https.
+While TLS is not a requirement to run the project, SwiftPM will only connect to Swift Birdhouse over https.
 
-To run the service locally on SSL, generate a self-signed certificate through `make generate-certificate`, which will create `swift-registry-certificate.crt` and `swift-registry-key.key` on the root folder for you. Add it to your KeyChain and trust it. Then specify the certificate on launch time.
+To run the service locally on SSL, generate a self-signed certificate through `make generate-certificate`, which will create `birdhouse-certificate.crt` and `birdhouse-key.key` on the root folder for you. Add it to your KeyChain and trust it. Then specify the certificate on launch time.
 
 ```bash
 make generate-certificate
 
-swift run swift-registry \
-   --certificate ./swift-registry-certificate.crt \
-   --private-key ./swift-registry-key.key
+swift run birdhouse \
+   --certificate ./birdhouse-certificate.crt \
+   --private-key ./birdhouse-key.key
 ```
