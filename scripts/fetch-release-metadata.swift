@@ -3,15 +3,16 @@
 import Foundation
 
 let arguments = CommandLine.arguments
-if arguments.count != 3 {
-    print("Usage: \(arguments[0]) <scope> <name>")
+if arguments.count != 4 {
+    print("Usage: \(arguments[0]) <scope> <name> <version>")
     exit(1)
 }
 
 let scope = arguments[1]
 let name = arguments[2]
+let version = arguments[3]
 
-let url = URL(string: "http://localhost:8080/\(scope)/\(name)")!
+let url = URL(string: "http://localhost:8080/\(scope)/\(name)/\(version)")!
 
 let session = URLSession.shared
 let (data, urlResponse) = try await session.data(from: url)

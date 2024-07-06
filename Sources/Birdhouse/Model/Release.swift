@@ -14,10 +14,10 @@ struct Release: Hashable {
     /// Version of the release
     let version: String
 
-    /// Details of a problem with this release
-    let problem: Problem?
-
     /// Source archive of the release
     let sourceArchive: Data
+
+    /// When the release was published
+    let publishedAt: Date
 
 }

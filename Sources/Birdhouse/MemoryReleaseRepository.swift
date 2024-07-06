@@ -15,11 +15,15 @@ actor MemoryReleaseRepository: ReleaseRepository {
             scope: scope,
             name: name,
             version: version,
-            problem: nil,
-            sourceArchive: sourceArchive
+            sourceArchive: sourceArchive,
+            publishedAt: Date()
         )
         releases.insert(release)
         return release
+    }
+
+    func get(scope: String, name: String, version: String) async throws -> Release? {
+        releases.first { $0.scope == scope && $0.name == name && $0.version == version }
     }
 
     func list(scope: String, name: String) async throws -> [Release] {
