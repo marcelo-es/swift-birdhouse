@@ -26,7 +26,7 @@ for (key, value) in httpResponse.allHeaderFields {
     print("\(key): \(value)")
 }
 
-if data.isEmpty == false, let reponseBody = String(data: data, encoding: .utf8) {
+if data.isEmpty == false {
     let json = try JSONSerialization.jsonObject(with: data)
     let jsonData = try JSONSerialization.data(withJSONObject: json, options: [.prettyPrinted, .withoutEscapingSlashes])
     guard let jsonText = String(data: jsonData, encoding: .utf8) else {

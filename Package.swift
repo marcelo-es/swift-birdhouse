@@ -15,6 +15,7 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-testing", from: "0.10.0"),
         .package(url: "https://github.com/hummingbird-project/hummingbird", from: "2.0.0-rc.1"),
         .package(url: "https://github.com/vapor/multipart-kit", from: "4.7.0"),
+        .package(url: "https://github.com/weichsel/ZIPFoundation", from: "0.9.19"),
     ],
     targets: [
         .executableTarget(
@@ -27,6 +28,7 @@ let package = Package(
                 .product(name: "HummingbirdTLS", package: "hummingbird"),
                 .product(name: "Logging", package: "swift-log"),
                 .product(name: "MultipartKit", package: "multipart-kit"),
+                .product(name: "ZIPFoundation", package: "ZIPFoundation"),
             ],
             swiftSettings: [
                 .unsafeFlags(["-cross-module-optimization"], .when(configuration: .release)),
