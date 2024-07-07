@@ -12,6 +12,7 @@ struct RegistryController<Repository: ReleaseRepository> {
         group.get("{scope}/{name}/{version}", use: fetchReleaseMetadata)   
         group.get("{scope}/{name}/{version}/Package.swift", use: fetchManifestForPackageRelease)   
         group.get("{scope}/{name}/{version}.zip", use: downloadSourceArchive)   
+        group.get("identifiers", use: lookupPackageIdentifiersByURL)
         group.put("{scope}/{name}/{version}", use: publishPackageRelease)   
     }
 

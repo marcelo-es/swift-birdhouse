@@ -7,3 +7,5 @@ Presentation rendered with [Deckset](deckset.com)
 
 
 - Swift Registry requires HTTPS
+
+- How do disambiguate packages
