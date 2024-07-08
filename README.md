@@ -2,16 +2,28 @@
 
 A [Swift Registry](https://github.com/swiftlang/swift-package-manager/blob/main/Documentation/PackageRegistry/Registry.md) server, built with [Hummingbird](https://github.com/hummingbird-project/hummingbird).
 
-## TLS
+> [!IMPORTANT]
+> Swift Birdhouse, while functional, is still under heavy development and is not production-ready. See [ROADMAP](ROADMAP.md) for information on where it is and where it's going.
 
-While TLS is not a requirement to run the project, SwiftPM will only connect to Swift Birdhouse over https.
+## Running Swift Birdhouse
 
-To run the service locally on SSL, generate a self-signed certificate through `make generate-certificate`, which will create `birdhouse-certificate.crt` and `birdhouse-key.key` on the root folder for you. Add it to your KeyChain and trust it. Then specify the certificate on launch time.
+To run Swift Birdhouse locally:
 
-```bash
-make generate-certificate
+```shell
+$ swift run swift-birdhouse
+```
 
-swift run birdhouse \
+This will fire up a server on `127.0.0.1` on port `8080`.
+
+## Self-Signed Certificate
+
+TLS is not a *strict* requirement from Swift 6 onwards, which has the option `--allow-insecure-http` on the `swift package-registry` commands.
+
+But if, for any reason, it is required to run Swift Birdhouse over HTTPS, the Makefile target `generate-certificate` can create a simple self-signed certificate and private key. Make sure to add it to the Mac Keychain and trust it.
+
+```shell
+$ make generate-certificate
+$ swift run birdhouse \
    --certificate ./birdhouse-certificate.crt \
    --private-key ./birdhouse-key.key
 ```

@@ -1,15 +1,42 @@
 # Roadmap
 
-## Basic Registry Features
+## Basic Registry Endpoints
 
-- [x] List package releases
-- [x] Fetch metadata for a package release
+- [ ] List package releases
+  - [x] Best-case scenarios
+  - [ ] Unit-test
+  - [ ] Sanitise input
+  - [ ] List package problems
+- [ ] Fetch metadata for a package release
+  - [x] Best-case scenarios
+  - [ ] Unit-test
+  - [ ] Sanitise input
 - [ ] Fetch manifest for a package release
+  - [x] Best-case scenarios
+  - [ ] Unit-test
+  - [ ] Sanitise input
 - [ ] Download source archive for a package release
+  - [x] Best-case scenarios
+  - [ ] Unit-test
+  - [ ] Sanitise input
 - [ ] Lookup package identifiers registered for a URL
-- [x] Create a package release
+  - [x] Best-case scenarios
+  - [ ] Unit-test
+  - [ ] Sanitise input
+- [ ] Create a package release
+  - [x] Best-case scenarios
+  - [ ] Unit-test
+  - [ ] Sanitise input
+  - [ ] Process package signature
+  - [ ] Process package metadata
 
-## Enhancements
+## Data Persistence
+
+- [ ] Database storage
+- [ ] File-system storage
+- [ ] Bucket storage
+
+## Miscellaneous
 
 - [ ] Verify SemVer
 - [ ] Hunt for missed stuff from the specification
@@ -17,4 +44,5 @@
 
 ## Swift Package Registry OpenAPI
 
-- Problem should have optional fields
+- [ ] Fix problems to be optional
+- [ ] Fix runtime not ignoring quotations on multiform boundaries
