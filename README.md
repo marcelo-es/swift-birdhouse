@@ -1,6 +1,6 @@
 ![swift-birdhouse-logo-horizontal](https://github.com/marcelo-es/swift-birdhouse/assets/1888072/1414e829-d9de-4c60-a52a-ad6fdb5b56af)
 
-A Swift Registry server built with Hummingbird.
+A Swift Registry server, built with Hummingbird.
 
 ## TLS
 
