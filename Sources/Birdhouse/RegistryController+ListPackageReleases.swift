@@ -38,9 +38,11 @@ enum ListPackageReleases {
 
 }
 
-extension ListPackageReleases.Response {
+private typealias ModelRelease = Release
 
-    init(from releases: [Birdhouse.Release], baseURL: URL) {
+private extension ListPackageReleases.Response {
+
+    init(from releases: [ModelRelease], baseURL: URL) {
         self.releases = Dictionary(uniqueKeysWithValues: releases.map { release in
             let url = "\(baseURL)/\(release.scope)/\(release.name)/\(release.version)"
             return (release.version, Release(url: url))

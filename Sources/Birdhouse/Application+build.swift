@@ -11,7 +11,7 @@ func buildApplication(_ arguments: ApplicationArguments) throws -> some Applicat
 
     let router = Router()
 
-    router.middlewares.add(LogRequestsMiddleware(.info, includeHeaders: .all()))
+    router.middlewares.add(LogRequestsMiddleware(.info))
 
     let repository = MemoryReleaseRepository()
     let registryController = RegistryController(

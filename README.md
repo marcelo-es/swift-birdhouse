@@ -1,9 +1,16 @@
 ![swift-birdhouse-logo-horizontal](https://github.com/marcelo-es/swift-birdhouse/assets/1888072/1414e829-d9de-4c60-a52a-ad6fdb5b56af)
 
-A [Swift Registry](https://github.com/swiftlang/swift-package-manager/blob/main/Documentation/PackageRegistry/Registry.md) server, built with [Hummingbird](https://github.com/hummingbird-project/hummingbird).
+A [Swift Registry](https://github.com/swiftlang/swift-package-manager/blob/main/Documentation/PackageRegistry/Registry.md), built with [Hummingbird](https://github.com/hummingbird-project/hummingbird).
 
 > [!IMPORTANT]
 > Swift Birdhouse, while functional, is still under heavy development and is not production-ready. See [ROADMAP](ROADMAP.md) for information on where it is and where it's going.
+
+## Project Goals
+
+- Be true to the [Swift Registry specs](https://github.com/swiftlang/swift-package-manager/blob/main/Documentation/PackageRegistry/Registry.md).
+- Have as few dependencies as we can get away with.
+- Be very fast on runtime.
+- Adopt the latest Swift standards (Swifts should love their house).
 
 ## Running Swift Birdhouse
 

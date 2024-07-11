@@ -75,7 +75,7 @@ enum FetchReleaseMetadata {
 
 extension FetchReleaseMetadata.Response {
 
-    init(from release: Birdhouse.Release) {
+    init(from release: Release) {
         self.init(
             id: "\(release.scope).\(release.name)",
             version: release.version,
