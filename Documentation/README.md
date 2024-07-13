@@ -2,4 +2,4 @@
 
 ## CocoaHeads Melbourne July 2024 Presentation
 
-> [Presentation slides](CocoaHeads.md)
+Watch on [YouTube](https://www.youtube.com/live/XaXg9EilrQQ?si=ybRyap-WWnBh7lMw&t=545), or check out the [slides](CocoaHeads.pdf).
