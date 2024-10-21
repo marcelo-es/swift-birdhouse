@@ -7,7 +7,8 @@ DerivedData/
 .swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
 .netrc
 .vscode/
+.zed/
 
-# Certificates 
+# Certificates
 birdhouse-key.key
 birdhouse-certificate.crt
