@@ -4,15 +4,15 @@ import PackageDescription
 
 let package = Package(
     name: "SwiftBirdhouse",
-    platforms: [.macOS(.v14)],
+    platforms: [.macOS(.v15)],
     products: [
         .executable(name: "birdhouse", targets: ["Birdhouse"])
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser", from: "1.5.0"),
-        .package(url: "https://github.com/apple/swift-http-types", from: "1.3.0"),
+        .package(url: "https://github.com/apple/swift-http-types", from: "1.3.1"),
         .package(url: "https://github.com/apple/swift-log", from: "1.6.1"),
-        .package(url: "https://github.com/hummingbird-project/hummingbird", from: "2.2.0"),
+        .package(url: "https://github.com/hummingbird-project/hummingbird", from: "2.5.0"),
         .package(url: "https://github.com/vapor/multipart-kit", from: "4.7.0"),
         .package(url: "https://github.com/weichsel/ZIPFoundation", from: "0.9.19"),
     ],
@@ -28,9 +28,6 @@ let package = Package(
                 .product(name: "Logging", package: "swift-log"),
                 .product(name: "MultipartKit", package: "multipart-kit"),
                 .product(name: "ZIPFoundation", package: "ZIPFoundation"),
-            ],
-            swiftSettings: [
-                .unsafeFlags(["-cross-module-optimization"], .when(configuration: .release))
             ]
         ),
         .testTarget(
