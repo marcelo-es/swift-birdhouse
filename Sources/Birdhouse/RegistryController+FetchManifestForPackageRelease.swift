@@ -4,7 +4,9 @@ import ZIPFoundation
 
 extension RegistryController {
 
-    @Sendable func fetchManifestForPackageRelease(request: Request, context: some RequestContext)
+    @Sendable func fetchManifestForPackageRelease(
+        request: Request, context: some RequestContext
+    )
         async throws -> EditedResponse<String>
     {
         let scope = try context.parameters.require("scope")

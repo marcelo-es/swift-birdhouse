@@ -1,5 +1,6 @@
-@testable import Birdhouse
 import Foundation
+
+@testable import Birdhouse
 
 extension Set<Release> {
 

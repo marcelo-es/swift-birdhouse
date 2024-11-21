@@ -3,7 +3,9 @@ import Hummingbird
 
 extension RegistryController {
 
-    @Sendable func downloadSourceArchive(request: Request, context: some RequestContext)
+    @Sendable func downloadSourceArchive(
+        request: Request, context: some RequestContext
+    )
         async throws -> EditedResponse<ByteBuffer>
     {
         let scope = try context.parameters.require("scope")

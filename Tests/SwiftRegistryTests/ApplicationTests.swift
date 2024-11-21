@@ -1,10 +1,12 @@
-@testable import Birdhouse
 import Hummingbird
 import HummingbirdTesting
 import Testing
 
-@Test("Router Configuration",
-      .disabled("Disabled until the router is configured"))
+@testable import Birdhouse
+
+@Test(
+    "Router Configuration",
+    .disabled("Disabled until the router is configured"))
 func application() async throws {
     let application = try buildApplication(MockApplicationArguments())
     try await application.test(.router) { client in

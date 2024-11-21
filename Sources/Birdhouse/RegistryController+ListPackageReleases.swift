@@ -3,7 +3,9 @@ import Hummingbird
 
 extension RegistryController {
 
-    @Sendable func listPackageReleases(request: Request, context: some RequestContext) async throws -> EditedResponse<ListPackageReleases.Response> {
+    @Sendable func listPackageReleases(
+        request: Request, context: some RequestContext
+    ) async throws -> EditedResponse<ListPackageReleases.Response> {
         let scope = try context.parameters.require("scope")
         let name = try context.parameters.require("name")
 
@@ -40,13 +42,14 @@ enum ListPackageReleases {
 
 private typealias ModelRelease = Release
 
-private extension ListPackageReleases.Response {
+extension ListPackageReleases.Response {
 
-    init(from releases: [ModelRelease], baseURL: URL) {
-        self.releases = Dictionary(uniqueKeysWithValues: releases.map { release in
-            let url = "\(baseURL)/\(release.scope)/\(release.name)/\(release.version)"
-            return (release.version, Release(url: url))
-        })
+    fileprivate init(from releases: [ModelRelease], baseURL: URL) {
+        self.releases = Dictionary(
+            uniqueKeysWithValues: releases.map { release in
+                let url = "\(baseURL)/\(release.scope)/\(release.name)/\(release.version)"
+                return (release.version, Release(url: url))
+            })
     }
 
 }
