@@ -4,7 +4,9 @@ import Hummingbird
 
 extension RegistryController {
 
-    @Sendable func fetchReleaseMetadata(request: Request, context: some RequestContext) async throws -> EditedResponse<FetchReleaseMetadata.Response> {
+    @Sendable func fetchReleaseMetadata(
+        request: Request, context: some RequestContext
+    ) async throws -> EditedResponse<FetchReleaseMetadata.Response> {
         let scope = try context.parameters.require("scope")
         let name = try context.parameters.require("name")
         let version = try context.parameters.require("version")
@@ -54,7 +56,7 @@ enum FetchReleaseMetadata {
                 let organization: Organization?
                 let url: String?
             }
-        
+
             let author: Author
             let description: String?
             let licenseURL: String?
@@ -103,7 +105,7 @@ extension Data {
 }
 
 extension Date {
-    
+
     var iso8601: String {
         ISO8601DateFormatter().string(from: self)
     }

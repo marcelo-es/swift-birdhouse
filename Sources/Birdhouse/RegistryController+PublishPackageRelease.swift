@@ -53,11 +53,13 @@ enum PublishPackageRelease {
 extension FormDataDecoder {
 
     /// Decode from a Hummingbird request.
-    public func decode<T: Decodable>(_ type: T.Type, from request: Request, context: some RequestContext) async throws -> T {
+    public func decode<T: Decodable>(
+        _ type: T.Type, from request: Request, context: some RequestContext
+    ) async throws -> T {
         guard let contentType = request.headers[.contentType],
-              let mediaType = MediaType(from: contentType),
-              let parameter = mediaType.parameter,
-              parameter.name == "boundary"
+            let mediaType = MediaType(from: contentType),
+            let parameter = mediaType.parameter,
+            parameter.name == "boundary"
         else {
             throw HTTPError(.unsupportedMediaType)
         }

@@ -19,7 +19,7 @@ func buildApplication(_ arguments: ApplicationArguments) throws -> some Applicat
         repository: repository
     )
     registryController.addRoutes(to: router.group())
-    
+
     let server: HTTPServerBuilder
     if let tlsConfiguration = try arguments.tlsConfiguration {
         server = try .tls(tlsConfiguration: tlsConfiguration)
