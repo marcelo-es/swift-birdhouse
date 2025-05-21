@@ -1,0 +1,17 @@
+name: Lint
+
+on: pull_request
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Swift Lint
+    runs-on: ubuntu-latest
+    container:
+      image: swift:6.1.0
+    steps:
+      - uses: actions/checkout@v4
+      - run: swift format lint --recursive Package.swift Sources Tests
