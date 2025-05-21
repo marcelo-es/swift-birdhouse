@@ -2,7 +2,6 @@
 
 import PackageDescription
 
-
 let package = Package(
     name: "SwiftBirdhouse",
     platforms: [.macOS(.v15)],
