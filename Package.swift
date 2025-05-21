@@ -1,4 +1,4 @@
-// swift-tools-version: 6.0
+// swift-tools-version: 6.1
 
 import PackageDescription
 
@@ -10,10 +10,10 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser", from: "1.5.0"),
-        .package(url: "https://github.com/apple/swift-http-types", from: "1.3.1"),
-        .package(url: "https://github.com/apple/swift-log", from: "1.6.1"),
-        .package(url: "https://github.com/hummingbird-project/hummingbird", from: "2.5.0"),
-        .package(url: "https://github.com/vapor/multipart-kit", from: "4.7.0"),
+        .package(url: "https://github.com/apple/swift-http-types", from: "1.4.0"),
+        .package(url: "https://github.com/apple/swift-log", from: "1.6.3"),
+        .package(url: "https://github.com/hummingbird-project/hummingbird", from: "2.14.0"),
+        .package(url: "https://github.com/vapor/multipart-kit", from: "4.7.1"),
         .package(url: "https://github.com/weichsel/ZIPFoundation", from: "0.9.19"),
     ],
     targets: [
