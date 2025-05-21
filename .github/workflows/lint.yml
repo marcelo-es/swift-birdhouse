@@ -14,4 +14,4 @@ jobs:
       image: swift:6.1.0
     steps:
       - uses: actions/checkout@v4
-      - run: swift format lint --recursive Package.swift Sources Tests
+      - run: swift format lint --recursive --strict Package.swift Sources Tests
