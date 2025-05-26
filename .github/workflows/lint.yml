@@ -1,5 +1,4 @@
 name: Lint
-run-name: Lint ${{ github.head_ref }}
 
 on: pull_request
 
