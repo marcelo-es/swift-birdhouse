@@ -1,5 +1,5 @@
 name: Test
-run-name: Test ${{ github.ref }}
+run-name: Test ${{ github.head_ref }}
 
 on: pull_request
 
