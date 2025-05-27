@@ -7,13 +7,13 @@ struct RegistryController<Repository: ReleaseRepository> {
     let baseURL: URL
     let repository: Repository
 
-    func addRoutes(to group: RouterGroup<some RequestContext>) {
-        group.get("{scope}/{name}", use: listPackageReleases)
-        group.get("{scope}/{name}/{version}", use: fetchReleaseMetadata)
-        group.get("{scope}/{name}/{version}/Package.swift", use: fetchManifestForPackageRelease)
-        group.get("{scope}/{name}/{version}.zip", use: downloadSourceArchive)
-        group.get("identifiers", use: lookupPackageIdentifiersByURL)
-        group.put("{scope}/{name}/{version}", use: publishPackageRelease)
+    func addRoutes(to router: Router<some RequestContext>) {
+        router.get("{scope}/{name}", use: listPackageReleases)
+        router.get("{scope}/{name}/{version}", use: fetchReleaseMetadata)
+        router.get("{scope}/{name}/{version}/Package.swift", use: fetchManifestForPackageRelease)
+        router.get("{scope}/{name}/{version}.zip", use: downloadSourceArchive)
+        router.get("identifiers", use: lookupPackageIdentifiersByURL)
+        router.put("{scope}/{name}/{version}", use: publishPackageRelease)
     }
 
 }
