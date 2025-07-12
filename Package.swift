@@ -9,11 +9,11 @@ let package = Package(
         .executable(name: "birdhouse", targets: ["Birdhouse"])
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-argument-parser", from: "1.5.0"),
+        .package(url: "https://github.com/apple/swift-argument-parser", from: "1.6.1"),
         .package(url: "https://github.com/apple/swift-http-types", from: "1.4.0"),
         .package(url: "https://github.com/apple/swift-crypto.git", from: "3.12.3"),
         .package(url: "https://github.com/apple/swift-log", from: "1.6.3"),
-        .package(url: "https://github.com/hummingbird-project/hummingbird", from: "2.14.0"),
+        .package(url: "https://github.com/hummingbird-project/hummingbird", from: "2.15.0"),
         .package(url: "https://github.com/vapor/multipart-kit", from: "4.7.1"),
         .package(url: "https://github.com/vapor-community/Zip", from: "2.2.6"),
     ],
