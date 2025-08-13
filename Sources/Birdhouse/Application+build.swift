@@ -5,7 +5,7 @@ import HummingbirdTLS
 import Logging
 import NIOSSL
 
-func buildApplication(_ arguments: ApplicationArguments) throws -> some ApplicationProtocol {
+public func buildApplication(_ arguments: ApplicationArguments) throws -> some ApplicationProtocol {
     var logger = Logger(label: "swift-birdhouse")
     logger.logLevel = .debug
 

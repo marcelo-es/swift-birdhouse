@@ -6,7 +6,7 @@ let package = Package(
     name: "SwiftBirdhouse",
     platforms: [.macOS(.v15)],
     products: [
-        .executable(name: "birdhouse", targets: ["Birdhouse"])
+        .executable(name: "birdhouse", targets: ["Command"])
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser", from: "1.6.1"),
@@ -19,9 +19,15 @@ let package = Package(
     ],
     targets: [
         .executableTarget(
+            name: "Command",
+            dependencies: [
+                .target(name: "Birdhouse"),
+                .product(name: "ArgumentParser", package: "swift-argument-parser"),
+            ]
+        ),
+        .target(
             name: "Birdhouse",
             dependencies: [
-                .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 .product(name: "HTTPTypes", package: "swift-http-types"),
                 .product(name: "Hummingbird", package: "hummingbird"),
                 .product(name: "HummingbirdCore", package: "hummingbird"),
@@ -35,7 +41,7 @@ let package = Package(
         .testTarget(
             name: "BirdhouseTests",
             dependencies: [
-                .byName(name: "Birdhouse"),
+                .target(name: "Birdhouse"),
                 .product(name: "Hummingbird", package: "hummingbird"),
                 .product(name: "HummingbirdTesting", package: "hummingbird"),
             ]

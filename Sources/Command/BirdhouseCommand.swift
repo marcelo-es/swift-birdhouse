@@ -1,5 +1,5 @@
 import ArgumentParser
-import Hummingbird
+import Birdhouse
 
 @main
 struct BirdhouseCommand: AsyncParsableCommand, ApplicationArguments {
@@ -23,24 +23,5 @@ struct BirdhouseCommand: AsyncParsableCommand, ApplicationArguments {
         let application = try buildApplication(self)
         try await application.runService()
     }
-
-}
-
-protocol ApplicationArguments {
-
-    /// Hostname to bind to
-    var hostname: String { get }
-
-    /// Port to bind to
-    var port: Int { get }
-
-    /// Use in-memory testing
-    var inMemoryTesting: Bool { get }
-
-    /// Certificate chain file path
-    var certificatePath: String? { get }
-
-    /// Private key file path
-    var privateKeyPath: String? { get }
 
 }
