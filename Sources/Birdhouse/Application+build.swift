@@ -5,15 +5,15 @@ import HummingbirdTLS
 import Logging
 import NIOSSL
 
-public func buildApplication(_ arguments: ApplicationArguments) throws -> some ApplicationProtocol {
-    var logger = Logger(label: "swift-birdhouse")
-    logger.logLevel = .debug
-
+public func buildApplication(
+    _ arguments: ApplicationArguments,
+    repository: some ReleaseRepository,
+    logger: Logger
+) throws -> some ApplicationProtocol {
     let router = Router()
 
     router.middlewares.add(LogRequestsMiddleware(.info))
 
-    let repository = MemoryReleaseRepository()
     let registryController = RegistryController(
         baseURL: try arguments.baseURL,
         repository: repository
@@ -30,10 +30,7 @@ public func buildApplication(_ arguments: ApplicationArguments) throws -> some A
     let application = Application(
         router: router,
         server: server,
-        configuration: .init(
-            address: arguments.bindAddress,
-            serverName: "swift-birdhouse"
-        ),
+        configuration: .init(address: arguments.bindAddress, serverName: "swift-birdhouse"),
         logger: logger
     )
     return application

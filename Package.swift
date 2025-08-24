@@ -22,6 +22,7 @@ let package = Package(
             name: "Command",
             dependencies: [
                 .target(name: "Birdhouse"),
+                .product(name: "Logging", package: "swift-log"),
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
             ]
         ),

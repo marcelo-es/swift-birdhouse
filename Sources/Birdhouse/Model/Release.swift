@@ -1,6 +1,6 @@
 import Foundation
 
-struct Release: Hashable {
+public struct Release: Hashable, Sendable {
 
     /// Package ID
     let id: UUID

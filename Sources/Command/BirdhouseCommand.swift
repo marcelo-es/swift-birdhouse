@@ -1,5 +1,6 @@
 import ArgumentParser
 import Birdhouse
+import Logging
 
 @main
 struct BirdhouseCommand: AsyncParsableCommand, ApplicationArguments {
@@ -10,8 +11,8 @@ struct BirdhouseCommand: AsyncParsableCommand, ApplicationArguments {
     @Option(name: .shortAndLong)
     var port: Int = 8080
 
-    @Flag(name: .shortAndLong)
-    var inMemoryTesting: Bool = false
+    @OptionGroup(title: "Logging")
+    var logging: LoggingOptions
 
     @Option(name: .customLong("certificate"), help: "PEM file containing certificate chain")
     var certificatePath: String?
@@ -20,8 +21,49 @@ struct BirdhouseCommand: AsyncParsableCommand, ApplicationArguments {
     var privateKeyPath: String?
 
     func run() async throws {
-        let application = try buildApplication(self)
+        var logger = Logger(label: "swift-birdhouse")
+        logger.logLevel = logging.level
+
+        let application = try buildApplication(
+            self,
+            repository: MemoryReleaseRepository(),
+            logger: logger
+        )
         try await application.runService()
+    }
+
+}
+
+struct LoggingOptions: ParsableArguments {
+
+    @Flag(
+        name: [.customShort("v"), .long],
+        help: "Increase verbosity to include informational output."
+    )
+    var verbose: Bool = false
+
+    @Flag(
+        name: [.customLong("vv"), .long],
+        help: "Increase verbosity to include debug output."
+    )
+    var veryVerbose: Bool = false
+
+    @Flag(
+        name: [.customShort("q"), .long],
+        help: "Decrease verbosity to only include error output."
+    )
+    var quiet: Bool = false
+
+    var level: Logger.Level {
+        if veryVerbose {
+            .debug
+        } else if verbose {
+            .info
+        } else if quiet {
+            .error
+        } else {
+            .notice
+        }
     }
 
 }
