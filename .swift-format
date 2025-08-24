@@ -9,10 +9,10 @@
   },
   "lineBreakAroundMultilineExpressionChainComponents" : false,
   "lineBreakBeforeControlFlowKeywords" : false,
-  "lineBreakBeforeEachArgument" : false,
+  "lineBreakBeforeEachArgument" : true,
   "lineBreakBeforeEachGenericRequirement" : false,
   "lineBreakBetweenDeclarationAttributes" : false,
-  "lineLength" : 120,
+  "lineLength" : 100,
   "maximumBlankLines" : 1,
   "multiElementCollectionTrailingCommas" : true,
   "noAssignmentInExpressions" : {
@@ -20,12 +20,8 @@
       "XCTAssertNoThrow"
     ]
   },
-  "prioritizeKeepingFunctionOutputTogether" : false,
-  "reflowMultilineStringLiterals" : {
-    "never" : {
-
-    }
-  },
+  "prioritizeKeepingFunctionOutputTogether" : true,
+  "reflowMultilineStringLiterals" : "never",
   "respectsExistingLineBreaks" : true,
   "rules" : {
     "AllPublicDeclarationsHaveDocumentation" : false,
@@ -74,6 +70,6 @@
   },
   "spacesAroundRangeFormationOperators" : false,
   "spacesBeforeEndOfLineComments" : 2,
-  "tabWidth" : 8,
+  "tabWidth" : 4,
   "version" : 1
 }
