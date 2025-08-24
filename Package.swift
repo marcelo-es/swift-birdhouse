@@ -1,4 +1,4 @@
-// swift-tools-version: 6.1
+// swift-tools-version: 6.2
 
 import PackageDescription
 
@@ -6,7 +6,7 @@ let package = Package(
     name: "SwiftBirdhouse",
     platforms: [.macOS(.v15)],
     products: [
-        .executable(name: "birdhouse", targets: ["Command"])
+        .executable(name: "swift-birdhouse", targets: ["Command"])
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser", from: "1.6.1"),
