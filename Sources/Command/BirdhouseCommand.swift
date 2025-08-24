@@ -1,12 +1,13 @@
 import ArgumentParser
 import Birdhouse
 import Logging
+import NIOSSL
 
 @main
-struct BirdhouseCommand: AsyncParsableCommand, ApplicationArguments {
+struct BirdhouseCommand: AsyncParsableCommand {
 
     @Option(name: .shortAndLong)
-    var hostname: String = "127.0.0.1"
+    var host: String = "127.0.0.1"
 
     @Option(name: .shortAndLong)
     var port: Int = 8080
@@ -20,12 +21,35 @@ struct BirdhouseCommand: AsyncParsableCommand, ApplicationArguments {
     @Option(name: .customLong("private-key"), help: "PEM file containing private key")
     var privateKeyPath: String?
 
+    func validate() throws {
+        guard
+            (certificatePath == nil && privateKeyPath == nil)
+                || (certificatePath != nil && privateKeyPath != nil)
+        else {
+            throw ValidationError(
+                "Both --certificate and --private-key must be provided to enable TLS."
+            )
+        }
+    }
+
     func run() async throws {
         var logger = Logger(label: "swift-birdhouse")
         logger.logLevel = logging.level
 
+        var tlsConfiguration: TLSConfiguration? = nil
+        if let certificatePath, let privateKeyPath {
+            let certificate = try NIOSSLCertificate.fromPEMFile(certificatePath)
+            let privateKey = try NIOSSLPrivateKey(file: privateKeyPath, format: .pem)
+            tlsConfiguration = TLSConfiguration.makeServerConfiguration(
+                certificateChain: certificate.map { .certificate($0) },
+                privateKey: .privateKey(privateKey)
+            )
+        }
+
         let application = try buildApplication(
-            self,
+            host: host,
+            port: port,
+            tlsConfiguration: tlsConfiguration,
             repository: MemoryReleaseRepository(),
             logger: logger
         )

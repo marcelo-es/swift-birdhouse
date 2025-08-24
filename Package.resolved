@@ -1,5 +1,5 @@
 {
-  "originHash" : "7eea67c3750cc5510f33c9922104f17680ac1f26fe23cfe1dd725ff176992f67",
+  "originHash" : "01d9a6a003cafdd9847d192cdfda8ba0cbc4edd19d6e2ca42bf2958c21096a5d",
   "pins" : [
     {
       "identity" : "async-http-client",
@@ -159,8 +159,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-nio-ssl.git",
       "state" : {
-        "revision" : "7c381eb6083542b124a6c18fae742f55001dc2b5",
-        "version" : "2.26.0"
+        "revision" : "385f5bd783ffbfff46b246a7db7be8e4f04c53bd",
+        "version" : "2.33.0"
       }
     },
     {
