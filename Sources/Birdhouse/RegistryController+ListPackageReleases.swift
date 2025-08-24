@@ -4,10 +4,15 @@ import Hummingbird
 extension RegistryController {
 
     @Sendable func listPackageReleases(
-        request: Request, context: some RequestContext
+        request: Request,
+        context: some RequestContext
     ) async throws -> EditedResponse<ListPackageReleases.Response> {
         let scope = try context.parameters.require("scope")
         let name = try context.parameters.require("name")
+
+        guard let acceptHeader = request.headers[.accept] else {
+            throw Problem(status: .badRequest, detail: "missing Accept header")
+        }
 
         let releases = try await repository.list(scope: scope, name: name)
 
@@ -49,7 +54,8 @@ extension ListPackageReleases.Response {
             uniqueKeysWithValues: releases.map { release in
                 let url = "\(baseURL)/\(release.scope)/\(release.name)/\(release.version)"
                 return (release.version, Release(url: url))
-            })
+            }
+        )
     }
 
 }

@@ -16,7 +16,7 @@ public func buildApplication(
     router.middlewares.add(LogRequestsMiddleware(.info))
 
     let registryController = RegistryController(
-        baseURL: try baseURL(host, port: port),
+        baseURL: try baseURL(host, port: port, secure: tlsConfiguration != nil),
         repository: repository
     )
     registryController.addRoutes(to: router)
@@ -37,9 +37,9 @@ public func buildApplication(
     return application
 }
 
-private func baseURL(_ host: String, port: Int) throws -> URL {
+private func baseURL(_ host: String, port: Int, secure: Bool) throws -> URL {
     var urlComponents = URLComponents()
-    urlComponents.scheme = "http"
+    urlComponents.scheme = secure ? "https" : "http"
     urlComponents.host = host
     urlComponents.port = port
     guard let url = urlComponents.url else {
