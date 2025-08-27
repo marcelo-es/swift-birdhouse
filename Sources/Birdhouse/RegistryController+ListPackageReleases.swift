@@ -10,9 +10,7 @@ extension RegistryController {
         let scope = try context.parameters.require("scope")
         let name = try context.parameters.require("name")
 
-        guard let acceptHeader = request.headers[.accept] else {
-            throw Problem(status: .badRequest, detail: "missing Accept header")
-        }
+        try assertAccept(headers: request.headers, mediaType: .json)
 
         let releases = try await repository.list(scope: scope, name: name)
 

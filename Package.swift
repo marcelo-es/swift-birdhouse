@@ -13,6 +13,7 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-http-types", from: "1.4.0"),
         .package(url: "https://github.com/apple/swift-crypto.git", from: "3.12.3"),
         .package(url: "https://github.com/apple/swift-log", from: "1.6.3"),
+        .package(url: "https://github.com/apple/swift-nio", from: "2.86.0"),
         .package(url: "https://github.com/apple/swift-nio-ssl", from: "2.33.0"),
         .package(url: "https://github.com/hummingbird-project/hummingbird", from: "2.15.0"),
         .package(url: "https://github.com/vapor/multipart-kit", from: "4.7.1"),
@@ -48,6 +49,7 @@ let package = Package(
                 .target(name: "Birdhouse"),
                 .product(name: "Hummingbird", package: "hummingbird"),
                 .product(name: "HummingbirdTesting", package: "hummingbird"),
+                .product(name: "NIOCore", package: "swift-nio"),
             ]
         ),
     ]
