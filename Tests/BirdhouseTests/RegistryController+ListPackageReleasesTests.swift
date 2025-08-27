@@ -132,15 +132,7 @@ extension Problem {
 
     init(buffer: ByteBuffer) throws {
         let jsonBody = Data(buffer: buffer)
-        let codable = try JSONDecoder().decode(Problem.CodableFormat.self, from: jsonBody)
-
-        self.init(
-            type: codable.type,
-            title: codable.title,
-            status: HTTPResponse.Status(integerLiteral: codable.status),
-            detail: codable.detail,
-            instance: codable.instance,
-        )
+        self = try JSONDecoder().decode(Problem.self, from: jsonBody)
     }
 
 }

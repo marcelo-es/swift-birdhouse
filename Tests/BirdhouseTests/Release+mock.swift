@@ -30,6 +30,14 @@ extension Set<Release> {
                 sourceArchive: Data(),
                 publishedAt: Date()
             ),
+            Release(
+                id: UUID(uuidString: "01AB1B56-CF49-4A9E-868A-D7CE40909DAC")!,
+                scope: "lisa",
+                name: "BubbleSort",
+                version: "2.0.0",
+                sourceArchive: Data(),
+                publishedAt: Date()
+            )
         ]
     }
 
