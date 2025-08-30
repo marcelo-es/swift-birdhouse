@@ -2,6 +2,28 @@ import Foundation
 
 @testable import Birdhouse
 
+extension Release {
+
+    static func mock(
+        id: String = "F891D03C-0031-4A5E-98A4-608FE7804C4D",
+        scope: String = "mona",
+        name: String = "LinkedList",
+        version: String = "1.0.0",
+        sourceArchive: Data = Data(),
+        publishedAt: Date = Date()
+    ) -> Self {
+        Release(
+            id: UUID(uuidString: id)!,
+            scope: scope,
+            name: name,
+            version: version,
+            sourceArchive: sourceArchive,
+            publishedAt: publishedAt
+        )
+    }
+
+}
+
 extension Set<Release> {
 
     static func mock() -> Self {
@@ -37,7 +59,7 @@ extension Set<Release> {
                 version: "2.0.0",
                 sourceArchive: Data(),
                 publishedAt: Date()
-            )
+            ),
         ]
     }
 

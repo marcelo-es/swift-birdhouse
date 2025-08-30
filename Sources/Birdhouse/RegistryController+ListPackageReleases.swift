@@ -31,9 +31,9 @@ extension RegistryController {
 
 enum ListPackageReleases {
 
-    struct Response: ResponseEncodable {
+    struct Response: ResponseCodable {
 
-        struct Release: Encodable {
+        struct Release: Codable {
             let url: String?
         }
 

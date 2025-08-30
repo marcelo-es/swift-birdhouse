@@ -41,7 +41,12 @@ private func baseURL(_ host: String, port: Int, secure: Bool) throws -> URL {
     var urlComponents = URLComponents()
     urlComponents.scheme = secure ? "https" : "http"
     urlComponents.host = host
-    urlComponents.port = port
+
+    // Only assign a port if it's different from the default
+    if secure && port != 443 || secure == false && port != 80 {
+        urlComponents.port = port
+    }
+
     guard let url = urlComponents.url else {
         throw BirdhouseError.malformedURL(host: host, port: port)
     }

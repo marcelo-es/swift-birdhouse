@@ -1,5 +1,5 @@
 {
-  "originHash" : "acea5d598343955cd62b8c6153c6ad2a824b93566e6ba3554e951d6fec9c47be",
+  "originHash" : "e2958b2026421a7f97104b2661ec2976ac7f68371319cc22bca06a3a0104dcc2",
   "pins" : [
     {
       "identity" : "async-http-client",
@@ -98,6 +98,15 @@
       "state" : {
         "revision" : "7fbb8b23b77ee548b3d0686b6faf735c1b3c7cb8",
         "version" : "1.1.0"
+      }
+    },
+    {
+      "identity" : "swift-http-structured-headers",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-http-structured-headers",
+      "state" : {
+        "revision" : "1625f271afb04375bf48737a5572613248d0e7a0",
+        "version" : "1.4.0"
       }
     },
     {
