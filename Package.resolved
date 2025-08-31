@@ -1,5 +1,5 @@
 {
-  "originHash" : "0fb1f32aff18b9aec1b5a42ea2c7223758ce5d5ea596861beecd4ebfc987875f",
+  "originHash" : "e2958b2026421a7f97104b2661ec2976ac7f68371319cc22bca06a3a0104dcc2",
   "pins" : [
     {
       "identity" : "async-http-client",
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/hummingbird-project/hummingbird.git",
       "state" : {
-        "revision" : "de2ff8249862791a8972842fd13bff014e71a329",
-        "version" : "2.14.0"
+        "revision" : "afb173a6a3be887a3484ba58ca4789efa2858e43",
+        "version" : "2.15.0"
       }
     },
     {
@@ -42,8 +42,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-argument-parser.git",
       "state" : {
-        "revision" : "41982a3656a71c768319979febd796c6fd111d5c",
-        "version" : "1.5.0"
+        "revision" : "309a47b2b1d9b5e991f36961c983ecec72275be3",
+        "version" : "1.6.1"
       }
     },
     {
@@ -101,6 +101,15 @@
       }
     },
     {
+      "identity" : "swift-http-structured-headers",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-http-structured-headers",
+      "state" : {
+        "revision" : "1625f271afb04375bf48737a5572613248d0e7a0",
+        "version" : "1.4.0"
+      }
+    },
+    {
       "identity" : "swift-http-types",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-http-types.git",
@@ -132,8 +141,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-nio.git",
       "state" : {
-        "revision" : "34d486b01cd891297ac615e40d5999536a1e138d",
-        "version" : "2.83.0"
+        "revision" : "1c30f0f2053b654e3d1302492124aa6d242cdba7",
+        "version" : "2.86.0"
       }
     },
     {
@@ -159,8 +168,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-nio-ssl.git",
       "state" : {
-        "revision" : "7c381eb6083542b124a6c18fae742f55001dc2b5",
-        "version" : "2.26.0"
+        "revision" : "385f5bd783ffbfff46b246a7db7be8e4f04c53bd",
+        "version" : "2.33.0"
       }
     },
     {

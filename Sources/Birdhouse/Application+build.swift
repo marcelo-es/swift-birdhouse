@@ -5,75 +5,61 @@ import HummingbirdTLS
 import Logging
 import NIOSSL
 
-func buildApplication(_ arguments: ApplicationArguments) throws -> some ApplicationProtocol {
-    var logger = Logger(label: "swift-birdhouse")
-    logger.logLevel = .debug
-
+public func buildApplication(
+    host: String = "127.0.0.1",
+    port: Int = 8080,
+    tlsConfiguration: TLSConfiguration? = nil,
+    repository: some ReleaseRepository,
+    logger: Logger = Logger(label: "swift-birdhouse")
+) throws -> some ApplicationProtocol {
     let router = Router()
-
     router.middlewares.add(LogRequestsMiddleware(.info))
 
-    let repository = MemoryReleaseRepository()
     let registryController = RegistryController(
-        baseURL: try arguments.baseURL,
+        baseURL: try baseURL(host, port: port, secure: tlsConfiguration != nil),
         repository: repository
     )
     registryController.addRoutes(to: router)
 
-    let server: HTTPServerBuilder
-    if let tlsConfiguration = try arguments.tlsConfiguration {
-        server = try .tls(tlsConfiguration: tlsConfiguration)
-    } else {
-        server = .http1()
-    }
+    let server: HTTPServerBuilder =
+        if let tlsConfiguration {
+            try .tls(tlsConfiguration: tlsConfiguration)
+        } else {
+            .http1()
+        }
 
     let application = Application(
         router: router,
         server: server,
-        configuration: .init(
-            address: arguments.bindAddress,
-            serverName: "swift-birdhouse"
-        ),
+        configuration: .init(address: .hostname(host, port: port), serverName: "swift-birdhouse"),
         logger: logger
     )
     return application
 }
 
-extension ApplicationArguments {
+private func baseURL(_ host: String, port: Int, secure: Bool) throws -> URL {
+    var urlComponents = URLComponents()
+    urlComponents.scheme = secure ? "https" : "http"
+    urlComponents.host = host
 
-    var bindAddress: BindAddress {
-        return .hostname(hostname, port: port)
+    // Only assign a port if it's different from the default
+    if secure && port != 443 || secure == false && port != 80 {
+        urlComponents.port = port
     }
 
-    var baseURL: URL {
-        get throws {
-            var baseURL = URLComponents()
-            baseURL.scheme = "http"
-            baseURL.host = hostname
-            baseURL.port = port
-            guard let url = baseURL.url else {
-                throw ApplicationArgumentsError.malformedURL(host: hostname, port: port)
-            }
-            return url
-        }
+    guard let url = urlComponents.url else {
+        throw BirdhouseError.malformedURL(host: host, port: port)
     }
-
-    var tlsConfiguration: TLSConfiguration? {
-        get throws {
-            guard let certificatePath, let privateKeyPath else {
-                return nil
-            }
-            let certificate = try NIOSSLCertificate.fromPEMFile(certificatePath)
-            let privateKey = try NIOSSLPrivateKey(file: privateKeyPath, format: .pem)
-            return TLSConfiguration.makeServerConfiguration(
-                certificateChain: certificate.map { .certificate($0) },
-                privateKey: .privateKey(privateKey)
-            )
-        }
-    }
-
+    return url
 }
 
-enum ApplicationArgumentsError: Error {
+enum BirdhouseError: Error, LocalizedError {
     case malformedURL(host: String, port: Int)
+
+    var errorDescription: String? {
+        switch self {
+        case .malformedURL(let host, let port):
+            return "The URL with host \(host) and port \(port) is malformed."
+        }
+    }
 }

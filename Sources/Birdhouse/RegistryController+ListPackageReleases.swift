@@ -4,15 +4,18 @@ import Hummingbird
 extension RegistryController {
 
     @Sendable func listPackageReleases(
-        request: Request, context: some RequestContext
+        request: Request,
+        context: some RequestContext
     ) async throws -> EditedResponse<ListPackageReleases.Response> {
         let scope = try context.parameters.require("scope")
         let name = try context.parameters.require("name")
 
+        try assertAccept(headers: request.headers, mediaType: .json)
+
         let releases = try await repository.list(scope: scope, name: name)
 
         if releases.isEmpty {
-            throw HTTPError(.notFound)
+            throw Problem(status: .notFound, detail: "Releases not found")
         }
 
         let response = ListPackageReleases.Response(from: releases, baseURL: baseURL)
@@ -28,9 +31,9 @@ extension RegistryController {
 
 enum ListPackageReleases {
 
-    struct Response: ResponseEncodable {
+    struct Response: ResponseCodable {
 
-        struct Release: Encodable {
+        struct Release: Codable {
             let url: String?
         }
 
@@ -49,7 +52,8 @@ extension ListPackageReleases.Response {
             uniqueKeysWithValues: releases.map { release in
                 let url = "\(baseURL)/\(release.scope)/\(release.name)/\(release.version)"
                 return (release.version, Release(url: url))
-            })
+            }
+        )
     }
 
 }

@@ -1,15 +1,20 @@
 import Foundation
 
 /// Implementation of `ReleaseRepository` that stores releases in memory.
-actor MemoryReleaseRepository: ReleaseRepository {
+public actor MemoryReleaseRepository: ReleaseRepository {
 
     var releases: Set<Release>
 
-    init(releases: Set<Release> = []) {
+    public init(releases: Set<Release> = []) {
         self.releases = releases
     }
 
-    func create(scope: String, name: String, version: String, sourceArchive: Data) throws -> Release {
+    public func create(
+        scope: String,
+        name: String,
+        version: String,
+        sourceArchive: Data
+    ) throws -> Release {
         let release = Release(
             id: UUID(),
             scope: scope,
@@ -22,11 +27,11 @@ actor MemoryReleaseRepository: ReleaseRepository {
         return release
     }
 
-    func get(scope: String, name: String, version: String) async throws -> Release? {
+    public func get(scope: String, name: String, version: String) async throws -> Release? {
         releases.first { $0.scope == scope && $0.name == name && $0.version == version }
     }
 
-    func list(scope: String, name: String) async throws -> [Release] {
+    public func list(scope: String, name: String) async throws -> [Release] {
         releases.filter { $0.scope == scope && $0.name == name }
     }
 

@@ -5,7 +5,8 @@ import Hummingbird
 extension RegistryController {
 
     @Sendable func fetchReleaseMetadata(
-        request: Request, context: some RequestContext
+        request: Request,
+        context: some RequestContext
     ) async throws -> EditedResponse<FetchReleaseMetadata.Response> {
         let scope = try context.parameters.require("scope")
         let name = try context.parameters.require("name")

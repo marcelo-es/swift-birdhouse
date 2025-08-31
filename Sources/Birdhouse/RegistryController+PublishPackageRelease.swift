@@ -4,7 +4,10 @@ import MultipartKit
 
 extension RegistryController {
 
-    @Sendable func publishPackageRelease(request: Request, context: some RequestContext) async throws -> Response? {
+    @Sendable func publishPackageRelease(
+        request: Request,
+        context: some RequestContext
+    ) async throws -> Response? {
         let scope = try context.parameters.require("scope")
         let name = try context.parameters.require("name")
         let version = try context.parameters.require("version")
@@ -54,7 +57,9 @@ extension FormDataDecoder {
 
     /// Decode from a Hummingbird request.
     public func decode<T: Decodable>(
-        _ type: T.Type, from request: Request, context: some RequestContext
+        _ type: T.Type,
+        from request: Request,
+        context: some RequestContext
     ) async throws -> T {
         guard let contentType = request.headers[.contentType],
             let mediaType = MediaType(from: contentType),

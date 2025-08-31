@@ -5,7 +5,8 @@ import Zip
 extension RegistryController {
 
     @Sendable func fetchManifestForPackageRelease(
-        request: Request, context: some RequestContext
+        request: Request,
+        context: some RequestContext
     )
         async throws -> EditedResponse<String>
     {
@@ -60,7 +61,10 @@ extension Release {
             return manifest
         }
 
-        let subdirectories = try fileManager.contentsOfDirectory(at: directory, includingPropertiesForKeys: nil)
+        let subdirectories = try fileManager.contentsOfDirectory(
+            at: directory,
+            includingPropertiesForKeys: nil
+        )
         for subdirectory in subdirectories {
             if let manifest = manifest(at: subdirectory) {
                 return manifest
