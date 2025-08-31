@@ -15,7 +15,7 @@ extension RegistryController {
         let releases = try await repository.list(scope: scope, name: name)
 
         if releases.isEmpty {
-            throw HTTPError(.notFound)
+            throw Problem(status: .notFound, detail: "Releases not found")
         }
 
         let response = ListPackageReleases.Response(from: releases, baseURL: baseURL)

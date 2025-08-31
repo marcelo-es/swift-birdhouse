@@ -8,7 +8,7 @@ import Testing
 @Suite("List Package Releases")
 struct RegistryControllerListPackageReleasesTests {
 
-    let mockReleases: [Release] = Array(Set<Release>.mock())
+    let mockReleases: [Release] = .mock()
     let decoder = JSONDecoder()
 
     @Test("Missing header")
@@ -110,43 +110,17 @@ struct RegistryControllerListPackageReleasesTests {
     @Test("List releases")
     func listReleases() async throws {
         // GIVEN releases with multiple scopes and names
-        let releases: [Release] = [
-            .mock(
-                id: "022D805C-4726-4F23-9A6B-11BEE3FBBB34",
-                scope: "mona",
-                name: "LinkedList",
-                version: "1.0.0",
-            ),
-            .mock(
-                id: "3D550E25-62AD-4CE1-A2FF-F9B626603FDD",
-                scope: "mona",
-                name: "LinkedList",
-                version: "1.1.0",
-            ),
-            .mock(
-                id: "9B595D15-3E5C-46A8-B770-D8EF9346C132",
-                scope: "mona",
-                name: "Tree",
-                version: "1.1.1",
-            ),
-            .mock(
-                id: "01AB1B56-CF49-4A9E-868A-D7CE40909DAC",
-                scope: "lisa",
-                name: "BubbleSort",
-                version: "2.0.0",
-            ),
-        ]
         let mockScope = "mona"
         let mockName = "LinkedList"
+        let repository = MemoryReleaseRepository(releases: Set(mockReleases))
 
-        // WHEN listing the released packages of the scope `mona` and name `LinkedList`
-        let repository = MemoryReleaseRepository(releases: Set(releases))
         let application = try buildApplication(
             host: "packages.example.com",
             port: 80,
             repository: repository
         )
 
+        // WHEN listing the released packages of the scope `mona` and name `LinkedList`
         let response = try await application.test(.router) { client in
             try await client.executeRequest(
                 uri: "http://packages.example.com/\(mockScope)/\(mockName)",
@@ -167,7 +141,7 @@ struct RegistryControllerListPackageReleasesTests {
             ListPackageReleases.Response.self,
             from: response.body
         )
-        #expect(responseBody.releases.count == 2)
+        #expect(responseBody.releases.count == 3)
 
         #expect(
             responseBody.releases["1.0.0"]?.url
@@ -177,6 +151,92 @@ struct RegistryControllerListPackageReleasesTests {
             responseBody.releases["1.1.0"]?.url
                 == "http://packages.example.com/\(mockScope)/\(mockName)/1.1.0"
         )
+        #expect(
+            responseBody.releases["1.1.1"]?.url
+                == "http://packages.example.com/\(mockScope)/\(mockName)/1.1.1"
+        )
+    }
+
+    @Test("List releases with port")
+    func listReleasesWithPort() async throws {
+        // GIVEN releases with multiple scopes and names
+        let mockScope = "mona"
+        let mockName = "LinkedList"
+        let repository = MemoryReleaseRepository(releases: Set(mockReleases))
+
+        let application = try buildApplication(
+            host: "packages.example.com",
+            port: 8080,
+            repository: repository
+        )
+
+        // WHEN listing the released packages of the scope `mona` and name `LinkedList`
+        let response = try await application.test(.router) { client in
+            try await client.executeRequest(
+                uri: "http://packages.example.com:8080/\(mockScope)/\(mockName)",
+                method: .get,
+                headers: [.accept: "application/vnd.swift.registry.v1+json"],
+                body: nil
+            )
+        }
+
+        // THEN The headers are as expected
+        #expect(response.status == .ok)
+        #expect(response.headers[.contentVersion] == "1")
+        let contentType = try #require(try ContentType(response.headers[.contentType]))
+        #expect(contentType.item == "application/json")
+
+        // AND the body contains the expected releases
+        let responseBody = try decoder.decode(
+            ListPackageReleases.Response.self,
+            from: response.body
+        )
+        #expect(responseBody.releases.count == 3)
+
+        #expect(
+            responseBody.releases["1.0.0"]?.url
+                == "http://packages.example.com:8080/\(mockScope)/\(mockName)/1.0.0"
+        )
+        #expect(
+            responseBody.releases["1.1.0"]?.url
+                == "http://packages.example.com:8080/\(mockScope)/\(mockName)/1.1.0"
+        )
+        #expect(
+            responseBody.releases["1.1.1"]?.url
+                == "http://packages.example.com:8080/\(mockScope)/\(mockName)/1.1.1"
+        )
+    }
+
+    @Test("Releases not found")
+    func releasesNotFound() async throws {
+        // GIVEN releases with multiple scopes and names
+        let mockScope = "monalisa"
+        let mockName = "LinkedList"
+
+        let repository = MemoryReleaseRepository(releases: Set(mockReleases))
+        let application = try buildApplication(
+            host: "packages.example.com",
+            port: 80,
+            repository: repository
+        )
+
+        // WHEN listing the released packages of the scope `monalisa` and name `LinkedList`
+        let response = try await application.test(.router) { client in
+            try await client.executeRequest(
+                uri: "http://packages.example.com/\(mockScope)/\(mockName)",
+                method: .get,
+                headers: [.accept: "application/vnd.swift.registry.v1+json"],
+                body: nil
+            )
+        }
+
+        // THEN The headers are as expected
+        #expect(response.status == .notFound)
+        #expect(response.headers[.contentVersion] == "1")
+        #expect(response.headers[.contentType] == "application/problem+json")
+
+        let problem = try decoder.decode(Problem.self, from: response.body)
+        #expect(problem.detail == "Releases not found")
     }
 
 }

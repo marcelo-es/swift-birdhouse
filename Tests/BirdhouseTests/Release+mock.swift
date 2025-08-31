@@ -24,7 +24,7 @@ extension Release {
 
 }
 
-extension Set<Release> {
+extension [Release] {
 
     static func mock() -> Self {
         [
@@ -49,6 +49,14 @@ extension Set<Release> {
                 scope: "mona",
                 name: "LinkedList",
                 version: "1.1.1",
+                sourceArchive: Data(),
+                publishedAt: Date()
+            ),
+            Release(
+                id: UUID(uuidString: "D58D5062-7E59-4402-BDD0-3B15D5119D46")!,
+                scope: "mona",
+                name: "Tree",
+                version: "1.0.0",
                 sourceArchive: Data(),
                 publishedAt: Date()
             ),
