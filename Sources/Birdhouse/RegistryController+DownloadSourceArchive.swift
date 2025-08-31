@@ -4,7 +4,8 @@ import Hummingbird
 extension RegistryController {
 
     @Sendable func downloadSourceArchive(
-        request: Request, context: some RequestContext
+        request: Request,
+        context: some RequestContext
     )
         async throws -> EditedResponse<ByteBuffer>
     {

@@ -4,7 +4,8 @@ import Hummingbird
 extension RegistryController {
 
     @Sendable func lookupPackageIdentifiersByURL(
-        request: Request, context: some RequestContext
+        request: Request,
+        context: some RequestContext
     )
         async throws -> EditedResponse<LookupPackageIdentifiersByURL.Response>
     {
