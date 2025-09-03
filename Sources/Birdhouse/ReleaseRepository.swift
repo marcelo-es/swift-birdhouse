@@ -7,7 +7,8 @@ public protocol ReleaseRepository: Sendable {
         scope: String,
         name: String,
         version: String,
-        sourceArchive: Data
+        sourceArchive: Data,
+        metadata: Metadata?
     ) async throws -> Release
 
     /// Fetches the release with the given scope, name, and version.

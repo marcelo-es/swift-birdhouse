@@ -13,7 +13,8 @@ public actor MemoryReleaseRepository: ReleaseRepository {
         scope: String,
         name: String,
         version: String,
-        sourceArchive: Data
+        sourceArchive: Data,
+        metadata: Metadata?
     ) throws -> Release {
         let release = Release(
             id: UUID(),
@@ -21,7 +22,8 @@ public actor MemoryReleaseRepository: ReleaseRepository {
             name: name,
             version: version,
             sourceArchive: sourceArchive,
-            publishedAt: Date()
+            publishedAt: Date(),
+            metadata: metadata
         )
         releases.insert(release)
         return release

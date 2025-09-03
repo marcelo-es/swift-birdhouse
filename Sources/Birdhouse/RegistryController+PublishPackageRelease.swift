@@ -18,11 +18,18 @@ extension RegistryController {
             context: context
         )
 
+        // TODO: Make this more efficient
+        var metadata: Metadata? = nil
+        if let metadataData = decodedRequest.metadata {
+            metadata = try JSONDecoder().decode(Metadata.self, from: metadataData)
+        }
+
         _ = try await repository.create(
             scope: scope,
             name: name,
             version: version,
-            sourceArchive: decodedRequest.sourceArchive
+            sourceArchive: decodedRequest.sourceArchive,
+            metadata: metadata
         )
 
         return Response(

@@ -1,6 +1,7 @@
 import Crypto
 import Foundation
 import Hummingbird
+import Zip
 
 extension RegistryController {
 
@@ -42,30 +43,6 @@ enum FetchReleaseMetadata {
             let signing: Signing?
         }
 
-        struct Metadata: Encodable {
-            struct Author: Encodable {
-                struct Organization: Encodable {
-                    let name: String
-                    let email: String?
-                    let description: String?
-                    let url: String?
-                }
-
-                let name: String
-                let email: String?
-                let description: String?
-                let organization: Organization?
-                let url: String?
-            }
-
-            let author: Author
-            let description: String?
-            let licenseURL: String?
-            let originalPublicationTime: String?
-            let readmeURL: String?
-            let repositoryURLs: [String]?
-        }
-
         let id: String
         let version: String
         let resources: [Resource]
@@ -90,7 +67,7 @@ extension FetchReleaseMetadata.Response {
                     signing: nil
                 )
             ],
-            metadata: nil,
+            metadata: release.metadata,
             publishedAt: release.publishedAt.iso8601
         )
     }

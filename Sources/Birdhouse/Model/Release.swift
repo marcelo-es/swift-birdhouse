@@ -20,4 +20,7 @@ public struct Release: Hashable, Sendable {
     /// When the release was published
     let publishedAt: Date
 
+    /// Additional information about the release
+    let metadata: Metadata?
+
 }
