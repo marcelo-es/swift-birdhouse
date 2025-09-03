@@ -17,4 +17,7 @@ public protocol ReleaseRepository: Sendable {
     /// Lists all releases with the given scope and name.
     func list(scope: String, name: String) async throws -> [Release]
 
+    /// Lookup package identifiers registered for a URL
+    func identifiers(with url: URL) async throws -> Set<String>
+
 }

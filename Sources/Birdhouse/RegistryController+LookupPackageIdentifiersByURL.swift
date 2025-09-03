@@ -15,30 +15,16 @@ extension RegistryController {
             throw HTTPError(.badRequest)
         }
 
-        guard url.host == "github.com" || url.host == "www.github.com" else {
-            throw HTTPError(.notFound)
-        }
+        let identifiers = try await repository.identifiers(with: url)
 
-        guard url.pathComponents.count == 3 else {
-            throw HTTPError(.notFound)
-        }
-
-        let scope = url.pathComponents[1]
-        var name = url.pathComponents[2]
-        if name.hasSuffix(".git") {
-            name = String(name.dropLast(4))
-        }
-
-        let releases = try await repository.list(scope: scope, name: name)
-
-        if releases.isEmpty {
+        if identifiers.isEmpty {
             throw HTTPError(.notFound)
         }
 
         return EditedResponse(
             headers: [.contentVersion: "1"],
             response: LookupPackageIdentifiersByURL.Response(
-                identifiers: ["\(scope).\(name)"]
+                identifiers: Array(identifiers)
             )
         )
     }

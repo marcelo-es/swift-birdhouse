@@ -37,4 +37,13 @@ public actor MemoryReleaseRepository: ReleaseRepository {
         releases.filter { $0.scope == scope && $0.name == name }
     }
 
+    // TODO: Test
+    public func identifiers(with url: URL) async throws -> Set<String> {
+        let identifiers = releases.filter {
+            $0.metadata?.repositoryURLs?.contains { $0 == url.absoluteString } == true
+        }
+        .map { "\($0.scope).\($0.name)" }
+        return Set(identifiers)
+    }
+
 }
