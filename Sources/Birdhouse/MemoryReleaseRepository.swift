@@ -42,7 +42,7 @@ public actor MemoryReleaseRepository: ReleaseRepository {
         let identifiers = releases.filter {
             $0.metadata?.repositoryURLs?.contains { $0 == url.absoluteString } == true
         }
-        .map { "\($0.scope).\($0.name)" }
+        .map { $0.identifier }
         return Set(identifiers)
     }
 

@@ -24,3 +24,12 @@ public struct Release: Hashable, Sendable {
     let metadata: Metadata?
 
 }
+
+extension Release {
+
+    /// The unique scoped identifier in the form scope.package-name
+    var identifier: String {
+        "\(scope).\(name)"
+    }
+
+}
