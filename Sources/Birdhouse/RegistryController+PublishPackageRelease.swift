@@ -14,11 +14,9 @@ extension RegistryController {
 
         let decodedRequest = try await FormDataDecoder().decode(
             PublishPackageRelease.Request.self,
-            from: request,
-            context: context
+            from: request
         )
 
-        // TODO: Make this more efficient
         var metadata: Metadata? = nil
         if let metadataData = decodedRequest.metadata {
             metadata = try JSONDecoder().decode(Metadata.self, from: metadataData)
@@ -65,8 +63,7 @@ extension FormDataDecoder {
     /// Decode from a Hummingbird request.
     public func decode<T: Decodable>(
         _ type: T.Type,
-        from request: Request,
-        context: some RequestContext
+        from request: Request
     ) async throws -> T {
         guard let contentType = request.headers[.contentType],
             let mediaType = MediaType(from: contentType),
